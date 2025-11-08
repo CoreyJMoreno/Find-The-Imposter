@@ -1,0 +1,30 @@
+{
+    "questions": 
+    [
+        {
+            "imposter_q": "Name a Celebrity",
+            "normal_q":
+            [
+                "Name a Celebrity you can closely relate to",
+                "Name a Celebrity that you have had a crush on",
+                "Name a Celebrity you dislike"
+            ]
+        },
+        {
+            "imposter_q": "Pick a number",
+            "normal_q":
+            [
+                "How many skittles can you fit in your mouth",
+                "What age should you get married"
+            ]
+        },
+        {
+            "imposter_q": "Name a movie",
+            "normal_q":
+            [
+                "What movie scared you the most",
+                "What movie has a character you love"
+            ]
+        }
+    ]
+}
