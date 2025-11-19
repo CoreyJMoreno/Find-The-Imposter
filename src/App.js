@@ -1,6 +1,7 @@
 // client/src/App.jsx
 import React, { useState, useEffect } from "react";
-import { socket } from "./socket.";
+import { socket } from "./client/src/socket";
+
 
 export default function App() {
   const [stage, setStage] = useState("home");
