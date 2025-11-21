@@ -157,13 +157,13 @@ io.on("connection", (socket) => {
 
     io.to(code).emit("gameStarting");
 
-    // Countdown 3-2-1
+    // Countdown 3-2-1-0
     let count = 3;
     const countdownTimer = setInterval(() => {
       io.to(code).emit("countdown", count);
       count--;
 
-      if (count === 0) {
+      if (count < 0) { // emit 0 first, then assign roles/questions
         clearInterval(countdownTimer);
 
         // --- Pick imposter ---
