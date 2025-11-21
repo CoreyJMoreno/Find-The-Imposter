@@ -24,7 +24,7 @@ const lobbies = {};
 let questionBank = [];
 
 try {
-  const data = fs.readFileSync("./questions.txt", "utf-8");
+  const data = fs.readFileSync("./questions.json", "utf-8");
   const json = JSON.parse(data);
 
   if (!json.questions || !Array.isArray(json.questions)) {
