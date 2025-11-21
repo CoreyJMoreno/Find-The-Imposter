@@ -1,57 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { socket } from "./client/src/socket"; 
+import { socket } from "./client/src/socket";
 import "./App.css";
 
 export default function App() {
-  // Initialize states
   const [stage, setStage] = useState("home");
   const [joining, setJoining] = useState(false);
   const [username, setUsername] = useState("");
   const [code, setCode] = useState("");
   const [players, setPlayers] = useState([]);
-  const [question, setQuestion] = useState("");
   const [isHost, setIsHost] = useState(false);
   const [countdown, setCountdown] = useState(null);
   const [role, setRole] = useState("");
+  const [question, setQuestion] = useState("");
 
-  // MAIN GAME EVENT HANDLERS
+  // -------------------- SOCKET LISTENERS --------------------
   useEffect(() => {
-    // Game created → host enters lobby
     socket.on("gameCreated", (c) => {
       setCode(c);
       setStage("lobby");
     });
 
-    // Lobby player list update
-    socket.on("playersUpdate", (p) => {
-      setPlayers(p);
-    });
+    socket.on("playersUpdate", (p) => setPlayers(p));
+    socket.on("hostUpdate", () => setIsHost(true));
 
-    // Host update
-    socket.on("hostUpdate", () => {
-      setIsHost(true);
-    });
-
-    // Game starting → go to game screen
     socket.on("gameStarting", () => {
       setStage("game");
     });
 
-    // Countdown event
     socket.on("countdown", (num) => {
       setCountdown(num);
+
+      if (num === 0) {
+        // Slight delay to show 0, then hide countdown
+        setTimeout(() => setCountdown(null), 500);
+      }
     });
 
-    // Role assignment
-    socket.on("role", ({ role }) => {
-      setRole(role);
-    });
-
-    // Question/prompt
-    socket.on("question", (q) => {
-      setQuestion(q);
-      setStage("question");
-    });
+    socket.on("role", ({ role }) => setRole(role));
+    socket.on("question", (q) => setQuestion(q));
 
     return () => {
       socket.off("gameCreated");
@@ -64,11 +50,23 @@ export default function App() {
     };
   }, []);
 
-  // Leave lobby
+  // -------------------- EVENT HANDLERS --------------------
+  const host = (e) => {
+    e.preventDefault();
+    if (!username.trim()) return alert("Username is required!");
+    socket.emit("hostGame", { username });
+  };
+
+  const join = (e) => {
+    e.preventDefault();
+    if (!username.trim()) return alert("Username is required!");
+    if (!code.trim()) return alert("Game Code is required");
+    socket.emit("joinGame", { code, username });
+    setStage("lobby");
+  };
+
   const leaveLobby = () => {
-    if (code) {
-      socket.emit("leaveGame", code);
-    }
+    if (code) socket.emit("leaveGame", code);
 
     setStage("home");
     setJoining(false);
@@ -76,35 +74,17 @@ export default function App() {
     setCode("");
     setPlayers([]);
     setIsHost(false);
+    setCountdown(null);
+    setRole("");
+    setQuestion("");
   };
 
-  // Host a game
-  const host = (e) => {
-    e.preventDefault();
-    if (!username.trim()) return alert("Username is required!");
-    socket.emit("hostGame", { username });
-  };
-
-  // Join a game
-  const join = (e) => {
-    e.preventDefault();
-    if (!username.trim()) return alert("Username is required!");
-    if (!code.trim()) return alert("Game Code is required!");
-
-    socket.emit("joinGame", { code, username });
-    setStage("lobby");
-  };
-
-  // Host starts the game
   const start = () => {
+    if (players.length < 3) return alert("Need at least 3 players to start.");
     socket.emit("startGame", code);
   };
 
-  // =========================
-  //         UI SECTION
-  // =========================
-
-  // HOME SCREEN
+  // -------------------- JSX --------------------
   if (stage === "home")
     return (
       <div className="home-main">
@@ -124,11 +104,18 @@ export default function App() {
 
           {!joining && (
             <>
-              <button onClick={host} className="home-buttons" disabled={!username.trim()}>
+              <button
+                onClick={host}
+                className="home-buttons"
+                disabled={!username.trim()}
+              >
                 Host Game
               </button>
 
-              <button onClick={() => setJoining(true)} className="home-buttons">
+              <button
+                onClick={() => setJoining(true)}
+                className="home-buttons"
+              >
                 Join Game
               </button>
             </>
@@ -145,11 +132,18 @@ export default function App() {
                 required
               />
 
-              <button onClick={join} className="home-buttons" disabled={!username.trim()}>
+              <button
+                onClick={join}
+                className="home-buttons"
+                disabled={!username.trim()}
+              >
                 Join
               </button>
 
-              <button onClick={() => setJoining(false)} className="home-buttons">
+              <button
+                onClick={() => setJoining(false)}
+                className="home-buttons"
+              >
                 Back
               </button>
             </>
@@ -158,7 +152,6 @@ export default function App() {
       </div>
     );
 
-  // LOBBY SCREEN
   if (stage === "lobby")
     return (
       <div className="lobby-main">
@@ -181,29 +174,29 @@ export default function App() {
             Start Game
           </button>
         )}
-
         <button onClick={leaveLobby} className="lobby-start-button">
           Leave
         </button>
       </div>
     );
 
-  // GAME SCREEN (Countdown + Role Reveal)
   if (stage === "game")
     return (
       <div className="game-container">
         {countdown !== null ? (
           <h1 style={{ fontSize: 80 }}>{countdown}</h1>
         ) : role ? (
-          <h2>You are: {role}</h2>
+          <>
+            <h2>You are: {role}</h2>
+            <h3>{question}</h3>
+          </>
         ) : null}
       </div>
     );
 
-  // PROMPT QUESTION SCREEN
   if (stage === "question")
     return (
-      <div className="question-container">
+      <div>
         <h2>Your Question:</h2>
         <p>{question}</p>
         <input placeholder="Your Answer" />
