@@ -187,9 +187,10 @@ export default function App() {
           <h1 style={{ fontSize: 80 }}>{countdown}</h1>
         ) : role ? (
           <>
-            <h2>You are: {role}</h2>
-            <h3>{question}</h3>
-
+            <div className="question-header">
+              <h2>You are: {role}</h2>
+              <p>{question}</p>
+            </div>
             <input placeholder="Your Answer" className="answer-input"/>
             <button className="home-buttons">Submit</button>
           </>

@@ -104,6 +104,7 @@
   font-size: 30px;
   text-align: center;
   background-color: rgb(202, 202, 202);
+  margin-top: 200px;
 }
 
 .game-container {
@@ -113,4 +114,15 @@
   display: flex;
   flex-direction: column;  /* if you need vertical stacking */
   overflow: hidden;        /* stops scroll */
+  gap: 20px;
+}
+
+.question-header {
+  align-self: center;
+  font-size: 25px;
+  margin-top: 20px;
+}
+
+.question-header p {
+  margin-top: 100px;
 }
