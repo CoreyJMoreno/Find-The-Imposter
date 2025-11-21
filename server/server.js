@@ -8,6 +8,7 @@ const app = express();
 app.use(cors());
 
 const httpServer = createServer(app);
+
 const io = new Server(httpServer, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
@@ -18,17 +19,29 @@ const io = new Server(httpServer, {
 const lobbies = {};
 
 // ---------------------
-// Load Question Bank from file
+// Load Question Bank
 // ---------------------
 let questionBank = [];
 
 try {
   const data = fs.readFileSync("./questions.txt", "utf-8");
   const json = JSON.parse(data);
-  questionBank = json.questions;
-  console.log("Question bank loaded:", questionBank.length, "questions");
+
+  if (!json.questions || !Array.isArray(json.questions)) {
+    throw new Error("questions.txt does not contain a 'questions' array");
+  }
+
+  questionBank = json.questions.filter(
+    q => q.imposter_q && Array.isArray(q.normal_q) && q.normal_q.length > 0
+  );
+
+  if (questionBank.length === 0) {
+    throw new Error("No valid questions found in questions.txt");
+  }
+
+  console.log(`Loaded ${questionBank.length} question sets.`);
 } catch (err) {
-  console.error("Error reading questions.txt:", err);
+  console.error("Error loading questions.txt:", err);
 }
 
 // ---------------------
@@ -39,6 +52,7 @@ function generateCode() {
 }
 
 function pickRandom(arr) {
+  if (!arr || arr.length === 0) return null;
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
@@ -152,12 +166,18 @@ io.on("connection", (socket) => {
       if (count === 0) {
         clearInterval(countdownTimer);
 
-        // --- Assign imposter ---
+        // --- Pick imposter ---
         const imposterIndex = Math.floor(Math.random() * lobby.players.length);
         const imposterId = lobby.players[imposterIndex].id;
 
-        // --- Pick a random question set ---
+        // --- Pick random question set ---
         const questionSet = pickRandom(questionBank);
+
+        if (!questionSet || !questionSet.imposter_q || !Array.isArray(questionSet.normal_q)) {
+          console.error("Invalid question set:", questionSet);
+          return;
+        }
+
         const normalQuestion = pickRandom(questionSet.normal_q);
 
         // Emit roles + questions
@@ -179,6 +199,4 @@ io.on("connection", (socket) => {
 // Start Server
 // ---------------------
 const PORT = process.env.PORT || 8000;
-httpServer.listen(PORT, () =>
-  console.log("Server running on port", PORT)
-);
+httpServer.listen(PORT, () => console.log("Server running on port", PORT));
