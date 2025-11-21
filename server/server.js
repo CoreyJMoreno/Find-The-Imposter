@@ -7,6 +7,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
+const PORT = process.env.PORT || 10000;
+
 // In-memory storage of games
 // { gameCode: { hostId, players: [{id, username}], started: false } }
 const games = {};
@@ -109,7 +111,5 @@ io.on("connection", (socket) => {
 });
 
 
-
-const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => console.log("Server running on port", PORT));
 
