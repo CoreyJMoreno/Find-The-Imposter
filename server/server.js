@@ -2,41 +2,44 @@ import express from "express";
 import cors from "cors";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import fs from "fs";
 
 const app = express();
 app.use(cors());
 
 const httpServer = createServer(app);
-
 const io = new Server(httpServer, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
+  cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
 // ---------------------
 // Lobbies Data
 // ---------------------
 const lobbies = {};
-// lobbies[code] = {
-//   hostId: "socket.id",
-//   players: [{ id, username }]
-// };
 
+// ---------------------
+// Load Question Bank from file
+// ---------------------
+let questionBank = [];
+
+try {
+  const data = fs.readFileSync("./questions.txt", "utf-8");
+  const json = JSON.parse(data);
+  questionBank = json.questions;
+  console.log("Question bank loaded:", questionBank.length, "questions");
+} catch (err) {
+  console.error("Error reading questions.txt:", err);
+}
+
+// ---------------------
+// Helper Functions
+// ---------------------
 function generateCode() {
   return Math.floor(10000 + Math.random() * 90000).toString();
 }
 
-function getRandomPrompt() {
-  const list = [
-    "Name something you'd find in a kitchen.",
-    "A vehicle people drive.",
-    "A popular fruit.",
-    "Something you wear.",
-    "A place people visit on vacation."
-  ];
-  return list[Math.floor(Math.random() * list.length)];
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 // ---------------------
@@ -54,9 +57,8 @@ io.on("connection", (socket) => {
     };
 
     socket.join(code);
-
     socket.emit("gameCreated", code);
-    socket.emit("hostUpdate"); // mark client as host
+    socket.emit("hostUpdate");
     io.to(code).emit("playersUpdate", lobbies[code].players);
   });
 
@@ -75,7 +77,6 @@ io.on("connection", (socket) => {
 
     lobby.players.push({ id: socket.id, username });
     socket.join(code);
-
     io.to(code).emit("playersUpdate", lobby.players);
   });
 
@@ -85,18 +86,15 @@ io.on("connection", (socket) => {
     if (!lobby) return;
 
     const leavingPlayerIsHost = lobby.hostId === socket.id;
-
-    lobby.players = lobby.players.filter(p => p.id !== socket.id);
+    lobby.players = lobby.players.filter((p) => p.id !== socket.id);
     socket.leave(code);
 
     if (lobby.players.length === 0) {
-      // No players left → delete lobby
       delete lobbies[code];
       return;
     }
 
     if (leavingPlayerIsHost) {
-      // Assign new host to first player
       lobby.hostId = lobby.players[0].id;
       io.to(lobby.hostId).emit("hostUpdate");
     }
@@ -110,18 +108,17 @@ io.on("connection", (socket) => {
       const lobby = lobbies[code];
       if (!lobby) continue;
 
-      const player = lobby.players.find(p => p.id === socket.id);
+      const player = lobby.players.find((p) => p.id === socket.id);
       if (!player) continue;
 
       const leavingPlayerIsHost = lobby.hostId === socket.id;
 
-      lobby.players = lobby.players.filter(p => p.id !== socket.id);
+      lobby.players = lobby.players.filter((p) => p.id !== socket.id);
 
       if (lobby.players.length === 0) {
         delete lobbies[code];
       } else {
         if (leavingPlayerIsHost) {
-          // Assign new host
           lobby.hostId = lobby.players[0].id;
           io.to(lobby.hostId).emit("hostUpdate");
         }
@@ -155,21 +152,24 @@ io.on("connection", (socket) => {
       if (count === 0) {
         clearInterval(countdownTimer);
 
-        // Assign imposter
-        const index = Math.floor(Math.random() * lobby.players.length);
-        const imposterId = lobby.players[index].id;
+        // --- Assign imposter ---
+        const imposterIndex = Math.floor(Math.random() * lobby.players.length);
+        const imposterId = lobby.players[imposterIndex].id;
 
+        // --- Pick a random question set ---
+        const questionSet = pickRandom(questionBank);
+        const normalQuestion = pickRandom(questionSet.normal_q);
+
+        // Emit roles + questions
         lobby.players.forEach((p) => {
-          io.to(p.id).emit("role", {
-            role: p.id === imposterId ? "Imposter" : "Not Imposter",
-          });
+          if (p.id === imposterId) {
+            io.to(p.id).emit("role", { role: "Imposter" });
+            io.to(p.id).emit("question", questionSet.imposter_q);
+          } else {
+            io.to(p.id).emit("role", { role: "Not Imposter" });
+            io.to(p.id).emit("question", normalQuestion);
+          }
         });
-
-        // After 4 seconds, send question
-        setTimeout(() => {
-          const prompt = getRandomPrompt();
-          io.to(code).emit("question", prompt);
-        }, 4000);
       }
     }, 1000);
   });
@@ -179,4 +179,6 @@ io.on("connection", (socket) => {
 // Start Server
 // ---------------------
 const PORT = process.env.PORT || 8000;
-httpServer.listen(PORT, () => console.log("Server running on port", PORT));
+httpServer.listen(PORT, () =>
+  console.log("Server running on port", PORT)
+);
