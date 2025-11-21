@@ -21,6 +21,26 @@ export default function App() {
     socket.on("errorMessage", (msg) => alert(msg));
   }, []);
 
+  useEffect(() => {
+    socket.on("hostUpdate", () => setIsHost(true));
+    return () => socket.off("hostUpdate");
+  }, []);
+
+  const leaveLobby = () => {
+  // Emit leave event to server
+  if (code) {
+    socket.emit("leaveGame", code); // tell server to remove this player
+  }
+  socket.emit("leaveGame", code);
+  // Reset state to go back home
+  setStage("home");
+  setJoining(false);
+  setUsername("");
+  setCode("");
+  setPlayers([]);
+  setIsHost(false);
+  };
+
   const host = (e) => {
     e.preventDefault();
     if (!username.trim()) {
@@ -118,6 +138,9 @@ export default function App() {
             Start Game
           </button>
         )}
+        <button onClick={leaveLobby} className="lobby-start-button">
+          Leave
+        </button>
       </div>
     );
 
