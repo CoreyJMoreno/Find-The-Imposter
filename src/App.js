@@ -189,6 +189,9 @@ export default function App() {
           <>
             <h2>You are: {role}</h2>
             <h3>{question}</h3>
+
+            <input placeholder="Your Answer" className="answer-input"/>
+            <button className="home-buttons">Submit</button>
           </>
         ) : null}
       </div>
