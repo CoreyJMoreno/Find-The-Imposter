@@ -13,13 +13,40 @@ export default function App() {
   const [players, setPlayers] = useState([]);
   const [question, setQuestion] = useState("");
   const [isHost, setIsHost] = useState(false);
+  const [countdown, setCountdown] = useState(null);
+  const [role, setRole] = useState("");
 
   useEffect(() => {
-    socket.on("gameCreated", (c) => { setCode(c); setStage("lobby"); setIsHost(true)});
-    socket.on("playersUpdate", (p) => setPlayers(p));
-    socket.on("receiveQuestion", (q) => { setQuestion(q); setStage("question"); });
-    socket.on("errorMessage", (msg) => alert(msg));
-  }, []);
+  // Existing listeners
+  socket.on("gameCreated", (c) => { setCode(c); setStage("lobby"); });
+  socket.on("playersUpdate", (p) => setPlayers(p));
+  socket.on("receiveQuestion", (q) => { setQuestion(q); setStage("question"); });
+  socket.on("gameStarting", () => {
+    setStage("game");
+  });
+  socket.on("countdown", (num) => {
+    setCountdown(num);
+  });
+
+  socket.on("role", ({ role }) => {
+    setRole(role);
+  });
+
+  socket.on("question", (q) => {
+    setQuestion(q);
+    setStage("question");
+  });
+
+  return () => {
+    socket.off("gameCreated");
+    socket.off("playersUpdate");
+    socket.off("receiveQuestion");
+    socket.off("gameStarting");
+    socket.off("countdown");
+    socket.off("role");
+    socket.off("question");
+  };
+}, []);
 
   useEffect(() => {
     socket.on("hostUpdate", () => setIsHost(true));
@@ -143,6 +170,18 @@ export default function App() {
         </button>
       </div>
     );
+
+  if (stage === "game") {
+    return (
+      <div className="game-container">
+        {countdown !== null ? (
+          <h1>{countdown}</h1>
+        ) : role ? (
+          <h2>You are: {role}</h2>
+        ) : null}
+      </div>
+    );
+  }
 
   if (stage === "question")
     return (
