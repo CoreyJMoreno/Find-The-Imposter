@@ -7,6 +7,7 @@ const app = express();
 app.use(cors());
 
 const httpServer = createServer(app);
+
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
@@ -18,7 +19,6 @@ const io = new Server(httpServer, {
 // Lobbies Data
 // ---------------------
 const lobbies = {};
-// Format:
 // lobbies[code] = {
 //   hostId: "socket.id",
 //   players: [{ id, username }]
@@ -56,8 +56,7 @@ io.on("connection", (socket) => {
     socket.join(code);
 
     socket.emit("gameCreated", code);
-    socket.emit("hostUpdate"); // mark this client as host
-
+    socket.emit("hostUpdate"); // mark client as host
     io.to(code).emit("playersUpdate", lobbies[code].players);
   });
 
@@ -85,13 +84,21 @@ io.on("connection", (socket) => {
     const lobby = lobbies[code];
     if (!lobby) return;
 
+    const leavingPlayerIsHost = lobby.hostId === socket.id;
+
     lobby.players = lobby.players.filter(p => p.id !== socket.id);
     socket.leave(code);
 
-    if (lobby.hostId === socket.id) {
-      io.to(code).emit("hostLeft");
+    if (lobby.players.length === 0) {
+      // No players left → delete lobby
       delete lobbies[code];
       return;
+    }
+
+    if (leavingPlayerIsHost) {
+      // Assign new host to first player
+      lobby.hostId = lobby.players[0].id;
+      io.to(lobby.hostId).emit("hostUpdate");
     }
 
     io.to(code).emit("playersUpdate", lobby.players);
@@ -106,14 +113,21 @@ io.on("connection", (socket) => {
       const player = lobby.players.find(p => p.id === socket.id);
       if (!player) continue;
 
+      const leavingPlayerIsHost = lobby.hostId === socket.id;
+
       lobby.players = lobby.players.filter(p => p.id !== socket.id);
 
-      if (lobby.hostId === socket.id) {
-        io.to(code).emit("hostLeft");
+      if (lobby.players.length === 0) {
         delete lobbies[code];
       } else {
+        if (leavingPlayerIsHost) {
+          // Assign new host
+          lobby.hostId = lobby.players[0].id;
+          io.to(lobby.hostId).emit("hostUpdate");
+        }
         io.to(code).emit("playersUpdate", lobby.players);
       }
+
       break;
     }
   });
@@ -123,7 +137,6 @@ io.on("connection", (socket) => {
     const lobby = lobbies[code];
     if (!lobby) return;
 
-    // Host only
     if (socket.id !== lobby.hostId) return;
 
     if (lobby.players.length < 3) {
@@ -152,7 +165,7 @@ io.on("connection", (socket) => {
           });
         });
 
-        // After 4 sec → send question/prompt
+        // After 4 seconds, send question
         setTimeout(() => {
           const prompt = getRandomPrompt();
           io.to(code).emit("question", prompt);
