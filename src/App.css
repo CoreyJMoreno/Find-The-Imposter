@@ -1,38 +1,98 @@
-.App {
+* {
+  font-family: Arial, sans-serif;
+}
+
+.home-main {
+  background: linear-gradient(to top, rgb(0, 0, 0), rgb(83, 83, 83));
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;  /* if you need vertical stacking */
+  overflow: hidden;        /* stops scroll */
+}
+
+.home-form {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.home-header {
+  padding-bottom: 0px;
+  align-self: center;
+  padding-bottom: 250px;
+  font-size: 24px;
+  padding-top: 20px;
+}
+
+
+.home-buttons {
+  color: rgb(0, 0, 0);
+  background-color: rgb(67, 64, 68);
+  text-align: center;
+  width: 220px;
+  height: 50px;
+  align-self: center;  
+  font-size: 30px;
+  border-radius: 10px;
+}
+
+.home-inputs {
+  width: 220px;
+  height: 50px;
+  align-self: center;
+  border-radius: 10px;
+  font-size: 30px;
+  text-align: center;
+  background-color: rgb(202, 202, 202);
+}
+
+.lobby-main {
+  background: linear-gradient(to top, rgb(0, 0, 0), rgb(83, 83, 83));
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;  /* if you need vertical stacking */
+  overflow: hidden;        /* stops scroll */
+}
+
+.lobby-players {
+  height: 250px;
+  align-items: center;
+}
+
+.lobby-players p {
+  font-size: 25px;
+  padding-left: 10px;
+}
+
+.lobby-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(4, auto);   /* 4 rows */
+  gap: 10px; /* spacing between items */
+  list-style: none;
+  padding: 0;
+  font-size: 25px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.lobby-gamecode {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 25px;
 }
 
-.App-link {
-  color: #61dafb;
+.lobby-start-button {
+  color: rgb(0, 0, 0);
+  background-color: rgb(67, 64, 68);
+  text-align: center;
+  width: 220px;
+  height: 50px;
+  align-self: center;  
+  font-size: 30px;
+  border-radius: 10px;
+  margin-top: 40px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
