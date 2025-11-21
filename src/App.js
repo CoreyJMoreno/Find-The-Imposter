@@ -188,7 +188,8 @@ export default function App() {
         ) : role ? (
           <>
             <div className="question-header">
-              <h2>You are: {role}</h2>
+              <h2>You are:</h2>
+              <h2>{role}</h2>
               <p>{question}</p>
             </div>
             <input placeholder="Your Answer" className="answer-input"/>
