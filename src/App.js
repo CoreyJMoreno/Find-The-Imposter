@@ -1,11 +1,9 @@
-// client/src/App.jsx
 import React, { useState, useEffect } from "react";
-import { socket } from "./client/src/socket";
-import "./App.css"
-
+import { socket } from "./client/src/socket"; 
+import "./App.css";
 
 export default function App() {
-  // Initialize states and variables
+  // Initialize states
   const [stage, setStage] = useState("home");
   const [joining, setJoining] = useState(false);
   const [username, setUsername] = useState("");
@@ -16,81 +14,97 @@ export default function App() {
   const [countdown, setCountdown] = useState(null);
   const [role, setRole] = useState("");
 
+  // MAIN GAME EVENT HANDLERS
   useEffect(() => {
-  // Existing listeners
-  socket.on("gameCreated", (c) => { setCode(c); setStage("lobby"); });
-  socket.on("playersUpdate", (p) => setPlayers(p));
-  socket.on("receiveQuestion", (q) => { setQuestion(q); setStage("question"); });
-  socket.on("gameStarting", () => {
-    setStage("game");
-  });
-  socket.on("countdown", (num) => {
-    setCountdown(num);
-  });
+    // Game created → host enters lobby
+    socket.on("gameCreated", (c) => {
+      setCode(c);
+      setStage("lobby");
+    });
 
-  socket.on("role", ({ role }) => {
-    setRole(role);
-  });
+    // Lobby player list update
+    socket.on("playersUpdate", (p) => {
+      setPlayers(p);
+    });
 
-  socket.on("question", (q) => {
-    setQuestion(q);
-    setStage("question");
-  });
+    // Host update
+    socket.on("hostUpdate", () => {
+      setIsHost(true);
+    });
 
-  return () => {
-    socket.off("gameCreated");
-    socket.off("playersUpdate");
-    socket.off("receiveQuestion");
-    socket.off("gameStarting");
-    socket.off("countdown");
-    socket.off("role");
-    socket.off("question");
-  };
-}, []);
+    // Game starting → go to game screen
+    socket.on("gameStarting", () => {
+      setStage("game");
+    });
 
-  useEffect(() => {
-    socket.on("hostUpdate", () => setIsHost(true));
-    return () => socket.off("hostUpdate");
+    // Countdown event
+    socket.on("countdown", (num) => {
+      setCountdown(num);
+    });
+
+    // Role assignment
+    socket.on("role", ({ role }) => {
+      setRole(role);
+    });
+
+    // Question/prompt
+    socket.on("question", (q) => {
+      setQuestion(q);
+      setStage("question");
+    });
+
+    return () => {
+      socket.off("gameCreated");
+      socket.off("playersUpdate");
+      socket.off("hostUpdate");
+      socket.off("gameStarting");
+      socket.off("countdown");
+      socket.off("role");
+      socket.off("question");
+    };
   }, []);
 
+  // Leave lobby
   const leaveLobby = () => {
-  // Emit leave event to server
-  if (code) {
-    socket.emit("leaveGame", code); // tell server to remove this player
-  }
-  socket.emit("leaveGame", code);
-  // Reset state to go back home
-  setStage("home");
-  setJoining(false);
-  setUsername("");
-  setCode("");
-  setPlayers([]);
-  setIsHost(false);
+    if (code) {
+      socket.emit("leaveGame", code);
+    }
+
+    setStage("home");
+    setJoining(false);
+    setUsername("");
+    setCode("");
+    setPlayers([]);
+    setIsHost(false);
   };
 
+  // Host a game
   const host = (e) => {
     e.preventDefault();
-    if (!username.trim()) {
-      alert("Username is Required!")
-      return;
-    }
+    if (!username.trim()) return alert("Username is required!");
     socket.emit("hostGame", { username });
-  }
+  };
+
+  // Join a game
   const join = (e) => {
     e.preventDefault();
-    if (!username.trim()) {
-      alert("Username is required!");
-      return;
-    }
-    if(!code.trim()) return alert("Game Code is Required");
+    if (!username.trim()) return alert("Username is required!");
+    if (!code.trim()) return alert("Game Code is required!");
 
     socket.emit("joinGame", { code, username });
     setStage("lobby");
   };
-  const start = () => socket.emit("startGame", code);
 
+  // Host starts the game
+  const start = () => {
+    socket.emit("startGame", code);
+  };
 
-  //----------------JSX SECTION------------------------------------------------
+  // =========================
+  //         UI SECTION
+  // =========================
+
+  // HOME SCREEN
   if (stage === "home")
     return (
       <div className="home-main">
@@ -99,53 +113,52 @@ export default function App() {
         </div>
 
         <form className="home-form">
-          {/* Username Input */}
           <input
-              placeholder="Username"
-              className="home-inputs"
-              maxLength={8}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          {/* ---------- FORM #1: Host Game Screen ---------- */}
+            placeholder="Username"
+            className="home-inputs"
+            maxLength={8}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+
           {!joining && (
-          <>
-            <button onClick={(host)} className="home-buttons" disabled={!username.trim()}>
-              Host Game
-            </button>
+            <>
+              <button onClick={host} className="home-buttons" disabled={!username.trim()}>
+                Host Game
+              </button>
 
-            <button onClick={() => setJoining(true)} className="home-buttons" >
-              Join Game
-            </button>
-          </>
-        )}
+              <button onClick={() => setJoining(true)} className="home-buttons">
+                Join Game
+              </button>
+            </>
+          )}
 
-        {/* ---------- FORM #2: Join game screen ---------- */}
-        {joining && (
-          <>
-            <input
-              placeholder="Game Code"
-              className="home-inputs"
-              maxLength={8}
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              required
-            />
+          {joining && (
+            <>
+              <input
+                placeholder="Game Code"
+                className="home-inputs"
+                maxLength={8}
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                required
+              />
 
-            <button onClick={join} className="home-buttons" disabled={!username.trim()}>
-              Join
-            </button>
+              <button onClick={join} className="home-buttons" disabled={!username.trim()}>
+                Join
+              </button>
 
-            <button onClick={() => setJoining(false)} className="home-buttons">
-              Back
-            </button>
-          </>
-        )}
+              <button onClick={() => setJoining(false)} className="home-buttons">
+                Back
+              </button>
+            </>
+          )}
         </form>
       </div>
     );
 
+  // LOBBY SCREEN
   if (stage === "lobby")
     return (
       <div className="lobby-main">
@@ -157,35 +170,40 @@ export default function App() {
         <div className="lobby-players">
           <p>Players:</p>
           <ul className="lobby-list">
-            {players.map((p) => <li key={p.id}>{p.username}</li>)}
+            {players.map((p) => (
+              <li key={p.id}>{p.username}</li>
+            ))}
           </ul>
         </div>
+
         {isHost && players.length >= 3 && (
           <button onClick={start} className="lobby-start-button">
             Start Game
           </button>
         )}
+
         <button onClick={leaveLobby} className="lobby-start-button">
           Leave
         </button>
       </div>
     );
 
-  if (stage === "game") {
+  // GAME SCREEN (Countdown + Role Reveal)
+  if (stage === "game")
     return (
       <div className="game-container">
         {countdown !== null ? (
-          <h1>{countdown}</h1>
+          <h1 style={{ fontSize: 80 }}>{countdown}</h1>
         ) : role ? (
           <h2>You are: {role}</h2>
         ) : null}
       </div>
     );
-  }
 
+  // PROMPT QUESTION SCREEN
   if (stage === "question")
     return (
-      <div>
+      <div className="question-container">
         <h2>Your Question:</h2>
         <p>{question}</p>
         <input placeholder="Your Answer" />
