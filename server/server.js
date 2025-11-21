@@ -157,40 +157,39 @@ io.on("connection", (socket) => {
 
     io.to(code).emit("gameStarting");
 
-    // Countdown 3-2-1-0
     let count = 3;
+
     const countdownTimer = setInterval(() => {
-      io.to(code).emit("countdown", count);
-      count--;
+        io.to(code).emit("countdown", count);
 
-      if (count < 0) { // emit 0 first, then assign roles/questions
-        clearInterval(countdownTimer);
+        if (count === 0) {
+            clearInterval(countdownTimer);
 
-        // --- Pick imposter ---
-        const imposterIndex = Math.floor(Math.random() * lobby.players.length);
-        const imposterId = lobby.players[imposterIndex].id;
+            // --- Assign imposter & questions immediately ---
+            const imposterIndex = Math.floor(Math.random() * lobby.players.length);
+            const imposterId = lobby.players[imposterIndex].id;
 
-        // --- Pick random question set ---
-        const questionSet = pickRandom(questionBank);
+            const questionSet = pickRandom(questionBank);
+            if (!questionSet || !questionSet.imposter_q || !Array.isArray(questionSet.normal_q)) {
+            console.error("Invalid question set:", questionSet);
+            return;
+            }
+            const normalQuestion = pickRandom(questionSet.normal_q);
 
-        if (!questionSet || !questionSet.imposter_q || !Array.isArray(questionSet.normal_q)) {
-          console.error("Invalid question set:", questionSet);
-          return;
+            lobby.players.forEach((p) => {
+            if (p.id === imposterId) {
+                io.to(p.id).emit("role", { role: "Imposter" });
+                io.to(p.id).emit("question", questionSet.imposter_q);
+            } else {
+                io.to(p.id).emit("role", { role: "Not Imposter" });
+                io.to(p.id).emit("question", normalQuestion);
+            }
+            });
+
+            return; // exit interval function immediately
         }
 
-        const normalQuestion = pickRandom(questionSet.normal_q);
-
-        // Emit roles + questions
-        lobby.players.forEach((p) => {
-          if (p.id === imposterId) {
-            io.to(p.id).emit("role", { role: "Imposter" });
-            io.to(p.id).emit("question", questionSet.imposter_q);
-          } else {
-            io.to(p.id).emit("role", { role: "Not Imposter" });
-            io.to(p.id).emit("question", normalQuestion);
-          }
-        });
-      }
+    count--;
     }, 1000);
   });
 });
