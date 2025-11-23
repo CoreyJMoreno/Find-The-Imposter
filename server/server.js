@@ -191,7 +191,7 @@ io.on("connection", (socket) => {
             revealIndex: 0, // how many revealed so far
             imposterId,
             normalQuestion: normalQuestion,
-            imposterQuestion: qs.imposter_q,
+            imposterQuestion: questionSet.imposter_q,
             dropdownUnlocked: false
           };
           
