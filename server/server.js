@@ -190,7 +190,7 @@ io.on("connection", (socket) => {
             revealOrder: [...lobby.players.map(p=>p.id)], // reveal sequence = player order (you can shuffle if desired)
             revealIndex: 0, // how many revealed so far
             imposterId,
-            normalQuestion: normal_q,
+            normalQuestion: normalQuestion,
             imposterQuestion: qs.imposter_q,
             dropdownUnlocked: false
           };
