@@ -350,7 +350,7 @@ export default function App() {
     return (
       <div className="game-container">
         {countdown !== null ? (
-          <h1 style={{ fontSize: 80 }}>{countdown}</h1>
+          <h1 style={{ fontSize: 80n }}>{countdown}</h1>
         ) : (
           <>
             <div className="question-header">
