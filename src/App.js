@@ -451,8 +451,8 @@ export default function App() {
       <div className="results-container">
         <h2>{results.imposterCaught ? "Imposter Caught!" : "Imposter Escaped!"}</h2>
 
+          <h3>Votes:</h3> 
         <div className="results-list">
-          <h3>Votes:</h3>
           {Object.entries(results.votes || {}).map(([pid, info]) => (
             <p key={pid}>
               {info.username}: {info.count}
