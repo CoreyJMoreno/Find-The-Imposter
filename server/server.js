@@ -222,7 +222,7 @@ io.on("connection", (socket) => {
     lobby.round.submitted.add(socket.id);
     
     // optionally broadcast how many have submitted
-    io.to(code).emit('submitProgress', { submitted: lobby.round.submitted.size, total: lobby.players.length });
+    // io.to(code).emit('submitProgress', { submitted: lobby.round.submitted.size, total: lobby.players.length });
     checkAllSubmittedAndAdvance(code);
   });
 
