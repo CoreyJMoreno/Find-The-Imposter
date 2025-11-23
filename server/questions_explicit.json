@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "imposter_q": "Name a Celebrity",
+      "normal_q": [
+        "Name a Celebrity you can closely relate to",
+        "Name a Celebrity that you would fuck",
+        "Name a Celebrity you dislike",
+        "Name a Celebrity that you've masturbated to",
+        ""
+      ]
+    },
+    {
+      "imposter_q": "Pick a number",
+      "normal_q": [
+        "How many skittles can you fit in your mouth",
+        "What is the best age to get married", 
+        "What's the most amount of times you've jerked off in a day",
+        ""
+      ]
+    },
+    {
+      "imposter_q": "Name a movie",
+      "normal_q": [
+        "What movie scared you the most",
+        "What movie has a character you love",
+        "Name a shitty movie",
+        "What is your favorite movie",
+        ""
+      ]
+    },
+    {
+      "imposter_q": "Name a Song",
+      "normal_q": [
+        "What is a song you have had sex to",
+        "Name a terrible song",
+        "Name a childhood song",
+        "What is your current favorite song",
+        ""
+      ]
+    },
+    {
+      "imposter_q": "Name a Country",
+      "normal_q": [
+        "Name a country you would go to",
+        "Name a country you would'nt go to",
+        "what country has your favorite food"
+      ]
+    },
+    {
+      "imposter_q": "Name an Animal",
+      "normal_q": [
+        "What animal represents you",
+        "Name an animal you could beat in a fight",
+        "What animal are you afraid of",
+        "What is your dream pet"
+      ]
+    },
+    {
+      "imposter_q": "Name a hobby/activity you haven't done",
+      "normal_q": [
+        "What is a hobby you want to try",
+        "What is your favorite hobby?",
+        "Name an activity that sucks"
+      ]
+    },
+    {
+      "imposter_q": "",
+      "normal_q": [
+        "",
+        "",
+        ""
+      ]
+    }
+  ]
+}
