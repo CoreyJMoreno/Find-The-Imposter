@@ -127,3 +127,80 @@
 .question-header p {
   margin-top: 100px;
 }
+
+.waiting-screen {
+  text-align: center;
+  margin-top: 200px;
+}
+
+.reveal-list {
+  text-align: center;
+}
+
+.reveal-item {
+  font-size: 25px;
+}
+
+.who-waiting {
+  font-size: 25px;
+  text-align: center;
+
+}
+
+.vote-header {
+  text-align: center;
+  font-size: 40px;
+  padding-top: 50px;
+  padding-bottom: 90px;
+}
+
+/* 2x4 grid for voting buttons */
+.vote-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 2 columns */
+  gap: 20px;                               /* spacing between buttons */
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Make sure the vote buttons fill nicely */
+.vote-grid .home-buttons {
+  width: 100%;
+  height: 70px;
+  font-size: 20px;
+}
+
+
+.results-container {
+  background: linear-gradient(to top, rgb(0, 0, 0), rgb(83, 83, 83));
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;  /* if you need vertical stacking */
+  overflow: hidden;        /* stops scroll */
+  gap: 20px;
+}
+
+.results-container h2 {
+  text-align: center;
+  font-size: 50px;
+}
+
+.results-list {
+  font-size: 30px;
+}
+
+.results-list h3 {
+  padding-left: 40px;
+}
+
+.results-list p {
+  padding-left: 90px;
+}
+
+.results-bottom{
+  font-size: 25px;
+  align-self: center;
+  text-align: center;
+}
