@@ -33,6 +33,7 @@ export default function App() {
   const [results, setResults] = useState(null);
   const [playAgainClicked, setPlayAgainClicked] = useState(false);
   const [playAgainProgress, setPlayAgainProgress] = useState({ count: 0, total: 0 });
+  const [votingResults, setVotingResults] = useState(null);
 
   // helper: find username by id
   const getUsername = (id) => {
@@ -145,6 +146,11 @@ export default function App() {
       alert(msg);
     });
 
+    socket.on("votingResults", ({ votes, imposterId, imposterCaught }) => {
+      setVotingResults({ votes, imposterId, imposterCaught });
+      setStage("results");
+    });
+
     // cleanup on unmount
     return () => {
       socket.off("connect");
@@ -164,6 +170,7 @@ export default function App() {
       socket.off("votingResults");
       socket.off("playAgainProgress");
       socket.off("errorMessage");
+      socket.off("votinResults");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [players]);
@@ -446,10 +453,11 @@ export default function App() {
       </div>
     );
 
-  if (stage === "results" && results)
+  if (stage === "results" && results && votingResults)
     return (
       <div className="results-container">
         <h2>{results.imposterCaught ? "Imposter Caught!" : "Imposter Escaped!"}</h2>
+        <h2>Imposter Was: { players.find(p => p.id === votingResults.imposterId)?.username || "Unknown"}</h2>
 
           <h3>Votes:</h3> 
         <div className="results-list">
