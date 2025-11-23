@@ -6,8 +6,7 @@
         "Name a Celebrity you can closely relate to",
         "Name a Celebrity that you would fuck",
         "Name a Celebrity you dislike",
-        "Name a Celebrity that you've masturbated to",
-        ""
+        "Name a Celebrity that you've masturbated to"
       ]
     },
     {
@@ -16,17 +15,16 @@
         "How many skittles can you fit in your mouth",
         "What is the best age to get married", 
         "What's the most amount of times you've jerked off in a day",
-        ""
+        "How many squirrels could you fight at once"
       ]
     },
     {
       "imposter_q": "Name a movie",
       "normal_q": [
         "What movie scared you the most",
-        "What movie has a character you love",
+        "What movie has a character you really like",
         "Name a shitty movie",
-        "What is your favorite movie",
-        ""
+        "What is your favorite movie"
       ]
     },
     {
@@ -35,8 +33,7 @@
         "What is a song you have had sex to",
         "Name a terrible song",
         "Name a childhood song",
-        "What is your current favorite song",
-        ""
+        "What is your current favorite song"
       ]
     },
     {
@@ -44,7 +41,8 @@
       "normal_q": [
         "Name a country you would go to",
         "Name a country you would'nt go to",
-        "what country has your favorite food"
+        "What country has your favorite food",
+        "Name a danerous country"
       ]
     },
     {
@@ -65,11 +63,18 @@
       ]
     },
     {
-      "imposter_q": "",
+      "imposter_q": "Name a setting for a date",
       "normal_q": [
-        "",
-        "",
-        ""
+        "Name your favorite place you've been on a date",
+        "What is a horrible place for a first date"
+      ]
+    },
+    {
+      "imposter_q": "Name a Music Genre",
+      "normal_q": [
+        "What is the best genre of music to have sex to",
+        "What is good music to sleep to",
+        "What genre do you dislike"
       ]
     }
   ]
