@@ -391,7 +391,18 @@ io.on("connection", (socket) => {
 
       // move to voting stage
       const playersForVoting = lobby.players.map((p) => ({ id: p.id, username: p.username }));
-      io.to(code).emit("votingStart", { players: playersForVoting });
+      io.to(code).emit("votingStart", { 
+        players: playersForVoting,
+        question: round.normalQuestion,      // ← ALWAYS send normal question
+        revealData: Object.entries(round.answers).map(([playerId, answer]) => {
+          const player = lobby.players.find((p) => p.id === playerId);
+          return {
+            playerId,
+            username: player?.username || "Unknown",
+            answer
+          };
+        })
+      });
 
       return;
     }

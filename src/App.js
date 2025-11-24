@@ -124,10 +124,11 @@ export default function App() {
     });
 
     // server tells client to show voting UI
-    socket.on("votingStart", ({ players: playersForVoting }) => {
-      setVotePlayers(playersForVoting || []);
+    socket.on("votingStart", ({ players, question, revealData }) => {
+      setVotePlayers(players);
+      setQuestion(question);         // ← correct normal question ALWAYS
+      setRevealData(revealData);
       setStage("vote");
-      setVoteSubmitted(false);
     });
 
     // voting results
@@ -424,35 +425,41 @@ export default function App() {
 
   if (stage === "vote")
     return (
-      <div className="game-container">
-        <h2 className="vote-header">Who is the Imposter?</h2>
-        <h2>Prompt Was:</h2>
-        <h2>{question}</h2>
+       <div className="game-container">
 
-          <div className="reveal-list">
-            {revealPlayers.map((p) => {
-              const revealed = revealData.find((r) => r.playerId === p.id);
-              return (
-                <div key={p.id} className="reveal-item">
-                  <strong>{p.username}:</strong>{" "}
-                  {revealed ? revealed.answer : ""}
-                </div>
-              );
-            })}
-          </div>
-        <div className="vote-grid">
-          {votePlayers.map((p) => (
-            <button
-              key={p.id}
-              className="home-buttons"
-              onClick={() => submitVote(p.id)}
-              disabled={voteSubmitted}
-            >
-              {p.username}
-            </button>
-          ))}
-        </div>
+      {/* Header */}
+      <h2 className="vote-header">Who is the Imposter?</h2>
+
+      {/* Show the prompt / question */}
+      <div className="vote-question">
+        <h3>Prompt Was:</h3>
+        <h2>{question}</h2>
       </div>
+
+      {/* Show all revealed answers */}
+      <div className="reveal-list">
+        {revealData.map((r) => (
+          <div key={r.playerId} className="reveal-item">
+            <strong>{r.username}:</strong> {r.answer}
+          </div>
+        ))}
+      </div>
+
+      {/* Voting buttons */}
+      <div className="vote-grid">
+        {votePlayers.map((p) => (
+          <button
+            key={p.id}
+            className="home-buttons vote-button"
+            onClick={() => submitVote(p.id)}
+            disabled={voteSubmitted}
+          >
+            {p.username}
+          </button>
+        ))}
+      </div>
+
+    </div>
     );
 
   if (stage === "results" && results && votingResults)
