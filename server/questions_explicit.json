@@ -10,9 +10,69 @@
       ]
     },
     {
+      "imposter_q": "Name a clothing brand",
+      "normal_q": [
+        "What brand of clothing are you most likely to wear to work",
+        "What brand of clothing should you wear to the gym",
+        "Name a luxury brand of clothing"
+      ]
+    },
+    {
+      "imposter_q": "Name a professional athlete",
+      "normal_q": [
+        "Who is the best athlete",
+        "Who could you beat in a 1v1 basketball match",
+        "Who's a professional athlete you'd have sex with"
+      ]
+    },
+    {
+      "imposter_q": "Name a city",
+      "normal_q": [
+        "What city are you most likely to get murdered in",
+        "Name a city you've had sex in",
+        "What city would you want to live in",
+        "Name a city known for a popular cuisine"
+      ]
+    },
+    {
+      "imposter_q": "Name a body part",
+      "normal_q": [
+        "What body part could you fit in your nostril",
+		    "What body part would you amputate first"
+      ]
+    },
+    {
       "imposter_q": "Name a race",
       "normal_q": [
         "What race are you"
+      ]
+    },
+    {
+      "imposter_q": "What's a food you've never tried before",
+      "normal_q": [
+        "What's your favorite food",
+        "What food could you fit in your ass",
+        "What's your least favorite food",
+        "What food could you keep on a shelf for 2 weeks and it would still be good",
+        "What's the spiciest food you've had"
+      ]
+    },
+    {
+      "imposter_q": "Name a video game",
+      "normal_q": [
+        "What video game do you have the most hours in",
+        "What is the most violent video game you have played"
+      ]
+    },
+    {
+      "imposter_q": "Name a type of bird",
+      "normal_q": [
+        "Name a score in golf",
+        "What's your favorite animal",
+        "What animal can you beat in a fight",
+        "What animal could you catch with your bare hands",
+        "Name a bird for hunting",
+        "What bird would most likely visit your garden"
       ]
     },
     {
@@ -21,7 +81,23 @@
         "How many skittles can you fit in your mouth",
         "What is the best age to get married", 
         "What's the most amount of times you've jerked off in a day",
-        "How many squirrels could you fight at once"
+        "How many squirrels could you fight at once",
+		    "How many cats would make a person considered a 'crazy cat lady'"
+      ]
+    },
+    {
+      "imposter_q": "Name a person in the group",
+      "normal_q": [
+        "Who in the group is most likely to get arrested",
+        "Who in the group is most likely to be kidnapped in Bangladesh",
+        "Who in the group is most likely to eat ass",
+        "Who in the group is least likely to get laid tonight",
+        "Who in the group is most likely to reach for a police officer's weapon",
+        "Who in the group is least likely to comply with a police officer",
+        "Who in the group is the most racist in the group",
+        "Who in the group is most likely to fight a pregnant woman",
+        "Who in the group is most likely to piss themselves while laughing",
+        "Who in the group has the phattest ass"
       ]
     },
     {
@@ -57,7 +133,9 @@
         "What animal represents you",
         "Name an animal you could beat in a fight",
         "What animal are you afraid of",
-        "What is your dream pet"
+        "What is your dream pet",
+        "Name a farm animal",
+        "Name a zoo animal"
       ]
     },
     {
