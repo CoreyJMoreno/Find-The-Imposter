@@ -10,6 +10,12 @@
       ]
     },
     {
+      "imposter_q": "Name a race",
+      "normal_q": [
+        "What race are you"
+      ]
+    },
+    {
       "imposter_q": "Pick a number",
       "normal_q": [
         "How many skittles can you fit in your mouth",
