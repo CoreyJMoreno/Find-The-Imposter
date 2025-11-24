@@ -426,6 +426,8 @@ export default function App() {
     return (
       <div className="game-container">
         <h2 className="vote-header">Who is the Imposter?</h2>
+        <h2>Prompt Was:</h2>
+        <h2>{question}</h2>
 
           <div className="reveal-list">
             {revealPlayers.map((p) => {
