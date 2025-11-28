@@ -3,7 +3,7 @@
 }
 
 .home-main {
-  background: linear-gradient(to top, rgb(0, 0, 0), rgb(83, 83, 83));
+  background: linear-gradient(to top, rgb(66, 64, 64), rgb(83, 83, 83));
   width: 100vw;
   height: 100dvh;
   display: flex;
@@ -48,7 +48,7 @@
 }
 
 .lobby-main {
-  background: linear-gradient(to top, rgb(0, 0, 0), rgb(83, 83, 83));
+  background: linear-gradient(to top, rgb(75, 71, 71), rgb(83, 83, 83));
   width: 100vw;
   height: 100dvh;
   display: flex;
@@ -108,7 +108,7 @@
 }
 
 .game-container {
-  background: linear-gradient(to top, rgb(0, 0, 0), rgb(83, 83, 83));
+  background: linear-gradient(to top, rgb(63, 61, 61), rgb(83, 83, 83));
   width: 100vw;
   height: 100dvh;
   display: flex;
