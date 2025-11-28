@@ -4,22 +4,156 @@
       "imposter_q": "Name a Celebrity",
       "normal_q": [
         "Name a Celebrity you can closely relate to",
-        "Name a Celebrity that you have had a crush on",
         "Name a Celebrity you dislike"
+      ]
+    },
+    {
+      "imposter_q": "Name a clothing brand",
+      "normal_q": [
+        "What brand of clothing are you most likely to wear to work",
+        "What brand of clothing should you wear to the gym",
+        "Name a luxury brand of clothing"
+      ]
+    },
+    {
+      "imposter_q": "Name a professional athlete",
+      "normal_q": [
+        "Who is the best athlete",
+        "Which professional athlete could you beat in a 1v1 basketball match"
+      ]
+    },
+    {
+      "imposter_q": "Name a city",
+      "normal_q": [
+        "What city would you most likely to get murdered in",
+        "What city would you want to live in",
+        "Name a city known for a popular cuisine"
+      ]
+    },
+    {
+      "imposter_q": "Name a body part",
+      "normal_q": [
+        "What body part could you fit in your nostril",
+		    "What body part would you amputate first",
+        "What is the least attractive body part"
+      ]
+    },
+    {
+      "imposter_q": "Name a race",
+      "normal_q": [
+        "What race are you"
+      ]
+    },
+    {
+      "imposter_q": "What's a food you've never tried before",
+      "normal_q": [
+        "What's your favorite food",
+        "What food could you fit in your ear",
+        "What's your least favorite food",
+        "What food could you keep on a shelf for 2 weeks and it would still be good",
+        "What's the spiciest food you've had",
+        "What food do you really want to try"
+      ]
+    },
+    {
+      "imposter_q": "Name a video game",
+      "normal_q": [
+        "What video game do you have the most hours in",
+        "What is the most violent video game you have played"
+      ]
+    },
+    {
+      "imposter_q": "Name a type of bird",
+      "normal_q": [
+        "Name a score in golf",
+        "What's your favorite animal",
+        "What animal can you beat in a fight",
+        "What animal could you catch with your bare hands",
+        "Name a bird for hunting",
+        "What bird would most likely visit your garden"
       ]
     },
     {
       "imposter_q": "Pick a number",
       "normal_q": [
         "How many skittles can you fit in your mouth",
-        "What age should you get married"
+        "What is the best age to get married", 
+        "What's the most amount of times you've jerked off in a day",
+        "How many squirrels could you fight at once",
+		    "How many cats would make a person considered a 'crazy cat lady'",
+        "How many children is too many children",
+        "How many animals have you seen today"
+      ]
+    },
+    {
+      "imposter_q": "Name a person in the group",
+      "normal_q": [
+        "Who in the group is most likely to get arrested",
+        "Who in the group is most likely to be kidnapped",
+        "Who in the group is most likely to reach for a police officer's weapon",
+        "Who in the group is least likely to comply with a police officer",
+        "Who in the group is the most racist in the group",
+        "Who in the group is most likely to fight a pregnant woman",
+        "Who in the group is most likely to piss themselves while laughing"
       ]
     },
     {
       "imposter_q": "Name a movie",
       "normal_q": [
         "What movie scared you the most",
-        "What movie has a character you really like"
+        "What movie has a character you really like",
+        "Name a shitty movie",
+        "What is your favorite movie"
+      ]
+    },
+    {
+      "imposter_q": "Name a Song",
+      "normal_q": [
+        "Name a terrible song",
+        "Name a childhood song",
+        "What is your current favorite song"
+      ]
+    },
+    {
+      "imposter_q": "Name a Country",
+      "normal_q": [
+        "Name a country you would go to",
+        "Name a country you would'nt go to",
+        "What country has your favorite food",
+        "Name a dangerous country"
+      ]
+    },
+    {
+      "imposter_q": "Name an Animal",
+      "normal_q": [
+        "What animal represents you",
+        "Name an animal you could beat in a fight",
+        "What animal are you afraid of",
+        "What is your dream pet",
+        "Name a farm animal",
+        "Name a zoo animal"
+      ]
+    },
+    {
+      "imposter_q": "Name a hobby/activity you haven't done",
+      "normal_q": [
+        "What is a hobby you want to try",
+        "What is your favorite hobby?",
+        "Name an activity that sucks"
+      ]
+    },
+    {
+      "imposter_q": "Name a setting for a date",
+      "normal_q": [
+        "Name your favorite place you've been on a date",
+        "What is a horrible place for a first date"
+      ]
+    },
+    {
+      "imposter_q": "Name a Music Genre",
+      "normal_q": [
+        "What is good music to sleep to",
+        "What genre do you dislike"
       ]
     }
   ]
