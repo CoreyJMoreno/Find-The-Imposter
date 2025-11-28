@@ -177,7 +177,7 @@
 
 
 .results-container {
-  background: linear-gradient(to top, rgb(0, 0, 0), rgb(83, 83, 83));
+  background: linear-gradient(to top, rgb(61, 61, 61), rgb(83, 83, 83));
   width: 100vw;
   height: 100dvh;
   display: flex;
@@ -210,4 +210,23 @@
   font-size: 25px;
   align-self: center;
   text-align: center;
+}
+
+.test {
+	background: linear-gradient(-45deg, #00ffaa55, #9F4AFF, #00ccff55, #4AFF7A, #ff66ff55, #29FFD8, #2BFFB8, #C77DFF, #0B1F3B, #FF2B4D, #0D6CBA);
+	background-size: 400% 400%;
+	animation: gradient 5s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
