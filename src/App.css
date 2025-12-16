@@ -138,8 +138,10 @@
 
 .reveal-list {
   text-align: center;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  width: 100%;
+  max-width: 600px;
+  /* display: grid; */
+  /* grid-template-columns: repeat(4, 1fr); 4 columns */
   margin-bottom: 20px;
 }
 

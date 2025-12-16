@@ -263,7 +263,7 @@ export default function App() {
           <input
             placeholder="Username"
             className="home-inputs"
-            maxLength={16}
+            maxLength={12}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -293,7 +293,7 @@ export default function App() {
               <input
                 placeholder="Game Code"
                 className="home-inputs"
-                maxLength={8}
+                maxLength={6}
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 required
