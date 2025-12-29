@@ -265,7 +265,6 @@ export default function App() {
             name="username"
             type="text"
             autocomplete="off"
-            autocapitalize="none"
             autocorrect="off"
             spellcheck="false"
             inputmode="text"
