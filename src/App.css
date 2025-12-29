@@ -140,8 +140,8 @@
   text-align: center;
   width: 100%;
   max-width: 600px;
-  /* display: grid; */
-  /* grid-template-columns: repeat(4, 1fr); 4 columns */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   margin-bottom: 20px;
 }
 
@@ -158,6 +158,8 @@
 .vote-header {
   text-align: center;
   font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 /* 2x4 grid for voting buttons */
