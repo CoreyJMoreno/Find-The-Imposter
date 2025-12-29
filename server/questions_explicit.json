@@ -4,7 +4,7 @@
       "imposter_q": "Name a Celebrity",
       "normal_q": [
         "Name a Celebrity you can closely relate to",
-        "Name a Celebrity that you would fuck",
+        "Name a Celebrity that you would smash",
         "Name a Celebrity you dislike",
         "Name a Celebrity that you've masturbated to"
       ]
@@ -21,7 +21,9 @@
       "imposter_q": "Name a professional athlete",
       "normal_q": [
         "Who is the best athlete",
-        "Who could you beat in a 1v1 basketball match",
+        "Who is the worst athlete",
+        "What professional athlete could you beat in a 1v1 basketball match",
+        "What professional athlete could you beat in a fight",
         "Who's a professional athlete you'd have sex with"
       ]
     },
@@ -44,16 +46,16 @@
     {
       "imposter_q": "Name a race",
       "normal_q": [
-        "What race are you"
+        "What race are you",
+        "What is the worst race (Like running/swimming/cars/etc.)"
       ]
     },
     {
-      "imposter_q": "What's a food you've never tried before",
+      "imposter_q": "Name a food",
       "normal_q": [
         "What's your favorite food",
         "What food could you fit in your ass",
         "What's your least favorite food",
-        "What food could you keep on a shelf for 2 weeks and it would still be good",
         "What's the spiciest food you've had"
       ]
     },
@@ -62,15 +64,6 @@
       "normal_q": [
         "What video game do you have the most hours in",
         "What is the most violent video game you have played"
-      ]
-    },
-    {
-      "imposter_q": "Name a type of bird",
-      "normal_q": [
-        "What's your favorite animal",
-        "What animal can you beat in a fight",
-        "Name a bird for hunting",
-        "What bird would most likely visit your garden"
       ]
     },
     {
@@ -87,7 +80,7 @@
       "imposter_q": "Name a person in the group",
       "normal_q": [
         "Who in the group is most likely to get arrested",
-        "Who in the group is most likely to be kidnapped in Bangladesh",
+        "Who in the group is most likely to be kidnapped",
         "Who in the group is most likely to eat ass",
         "Who in the group is least likely to get laid tonight",
         "Who in the group is most likely to reach for a police officer's weapon",
@@ -104,7 +97,9 @@
         "What movie scared you the most",
         "What movie has a character you really like",
         "Name a shitty movie",
-        "What is your favorite movie"
+        "What is your favorite movie",
+        "Name an overrated movie",
+        "Name an underrated movie"
       ]
     },
     {
@@ -120,9 +115,9 @@
       "imposter_q": "Name a Country",
       "normal_q": [
         "Name a country you would go to",
-        "Name a country you would'nt go to",
+        "Name the last country you would go to",
         "What country has your favorite food",
-        "Name a danerous country"
+        "Name a dangerous country"
       ]
     },
     {
@@ -137,11 +132,11 @@
       ]
     },
     {
-      "imposter_q": "Name a hobby/activity you haven't done",
+      "imposter_q": "Name a hobby/activity",
       "normal_q": [
-        "What is a hobby you want to try",
-        "What is your favorite hobby?",
-        "Name an activity that sucks"
+        "What is a hobby/activity you want to try",
+        "What is your favorite hobby/activity?",
+        "Name a hobby/activity that sucks"
       ]
     },
     {
