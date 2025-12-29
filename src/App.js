@@ -454,7 +454,9 @@ export default function App() {
 
       {/* Voting buttons */}
       <div className="vote-grid">
-        {votePlayers.map((p) => (
+        {votePlayers
+        .filter((p) => p.id !== myId)
+        .map((p) => (
           <button
             key={p.id}
             className="home-buttons vote-button"
