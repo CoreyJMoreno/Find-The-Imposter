@@ -267,7 +267,7 @@ export default function App() {
             autocomplete="off"
             autocorrect="off"
             spellcheck="false"
-            inputmode="text"
+            inputMode="text"
             placeholder="Username"
             className="home-inputs"
             maxLength={12}
