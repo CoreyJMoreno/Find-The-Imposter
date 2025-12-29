@@ -261,6 +261,14 @@ export default function App() {
 
         <form className="home-form" onSubmit={(e) => e.preventDefault()}>
           <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="off"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+            inputmode="text"
             placeholder="Username"
             className="home-inputs"
             maxLength={12}
