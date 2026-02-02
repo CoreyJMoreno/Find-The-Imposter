@@ -8,7 +8,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
-const questions = JSON.parse(fs.readFileSync("questions.json", "utf-8")).questions;
+const questions = JSON.parse(fs.readFileSync("questions_explicit.json", "utf-8")).questions;
 const games = {}; // { [code]: { players: [], imposter: null, question: {} } }
 
 io.on("connection", (socket) => {
