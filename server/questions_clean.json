@@ -19,7 +19,7 @@
       "imposter_q": "Name a professional athlete",
       "normal_q": [
         "Who is the best athlete",
-        "Which professional athlete could you beat in a 1v1 basketball match"
+        "Which professional athlete could you beat in a fistfight"
       ]
     },
     {
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "imposter_q": "What's a food you've never tried before",
+      "imposter_q": "Name a Food",
       "normal_q": [
         "What's your favorite food",
         "What food could you fit in your ear",
@@ -63,14 +63,10 @@
       ]
     },
     {
-      "imposter_q": "Name a type of bird",
+      "imposter_q": "Name an animal",
       "normal_q": [
-        "Name a score in golf",
-        "What's your favorite animal",
-        "What animal can you beat in a fight",
-        "What animal could you catch with your bare hands",
-        "Name a bird for hunting",
-        "What bird would most likely visit your garden"
+        "Who in the group looks most like a bird",
+        "Name an animal you can fight 10 of and win"
       ]
     },
     {
@@ -78,7 +74,6 @@
       "normal_q": [
         "How many skittles can you fit in your mouth",
         "What is the best age to get married", 
-        "What's the most amount of times you've jerked off in a day",
         "How many squirrels could you fight at once",
 		    "How many cats would make a person considered a 'crazy cat lady'",
         "How many children is too many children",
@@ -121,17 +116,6 @@
         "Name a country you would'nt go to",
         "What country has your favorite food",
         "Name a dangerous country"
-      ]
-    },
-    {
-      "imposter_q": "Name an Animal",
-      "normal_q": [
-        "What animal represents you",
-        "Name an animal you could beat in a fight",
-        "What animal are you afraid of",
-        "What is your dream pet",
-        "Name a farm animal",
-        "Name a zoo animal"
       ]
     },
     {
