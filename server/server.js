@@ -240,8 +240,8 @@ io.on("connection", (socket) => {
       return;
     }
 
-    if (lobby.players.length >= 6) {
-      socket.emit("errorMessage", "Lobby full (max 6 players).");
+    if (lobby.players.length >= 8) {
+      socket.emit("errorMessage", "Lobby full (max 8 players).");
       return;
     }
 
