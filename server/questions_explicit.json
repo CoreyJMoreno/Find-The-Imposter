@@ -22,7 +22,6 @@
       "normal_q": [
         "Who is the best athlete",
         "Who is the worst athlete",
-        "What professional athlete could you beat in a 1v1 basketball match",
         "What professional athlete could you beat in a fight",
         "Who's a professional athlete you'd have sex with"
       ]
@@ -40,7 +39,8 @@
       "imposter_q": "Name a body part",
       "normal_q": [
         "What body part could you fit in your nostril",
-		    "What body part would you amputate first"
+		    "What body part would you amputate first",
+		"WHo has the smallest weiner in the group"
       ]
     },
     {
